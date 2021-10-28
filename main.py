@@ -1,31 +1,34 @@
-#Importing all Libraries needed
 from flask import Flask, render_template, Response
 import cv2
 
-#Initialize Flask
 app = Flask(__name__)
 
-#Capture local cameras video
-camera = cv2.VideoCapture(0)
+camera = cv2.VideoCapture(0)  # use 0 for web camera
 
-if __name__ == '__main__':
-    print("Hello world")
-
-def generate_frames():
+def gen_frames():  # generate frame by frame from camera
     while True:
-        success, frame = camera.read() #Read a camera frame
+        # Capture frame-by-frame
+        success, frame = camera.read()  # read the camera frame
         if not success:
             break
         else:
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
-            yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n') #concat frame to show results
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
+
+
+@app.route('/video_feed')
+def video_feed():
+    #Video streaming route. Put this in the src attribute of an img tag
+    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 @app.route('/')
 def index():
+    #Video streaming Home Page
     return render_template('index.html')
 
-@app.route('video_feed')
-def video_feed():
-    return Response(generate_frames(), mimetype=)
 
+if __name__ == '__main__':
+    app.run(debug=True)

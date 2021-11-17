@@ -7,7 +7,7 @@ import numpy as np
 
 app = Flask(__name__)
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
 def gen_frames():
 

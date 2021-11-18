@@ -1,11 +1,12 @@
 #NovusLive
 
 from flask import Flask, render_template, Response
+from flask_socketio import SocketIO
 import cv2
 import numpy as np
 
-
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
@@ -130,8 +131,10 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    gen_frames()
+    #app.run(debug=True)
+    #gen_frames()
+    socketio.run(app)
+    #gen_frames()
 
 #mux
 

@@ -13,14 +13,17 @@ cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 def gen_frames():
 
         #path to classifiers
-    path = 'C:/Users/mrspe/OneDrive - Waterford Institute of Technology/Desktop/Local Github/opencv/data/haarcascades/'
+    #path = 'HaarCascades/'
 
     #get image classifiers
-    face_cascade = cv2.CascadeClassifier(path +'haarcascade_frontalface_default.xml')
-    eye_cascade = cv2.CascadeClassifier(path +'haarcascade_eye.xml')
+    face_cascade = cv2.CascadeClassifier('HaarCascades/haarcascade_frontalface_default.xml')
+    #eye_cascade = cv2.CascadeClassifier(path +'haarcascade_eye.xml')
 
     #read image
-    cat = cv2.imread('catfilter.png')
+    cat = cv2.imread('Filters/Cat_Filter.png')
+    #cat = cv2.imread('Filters/Beard_Glasses_Filter.png')
+    #dalmation = cv2.imread('Filters/Dalmation_Filter.png')
+    #cat = cv2.imread('Filters/Fox_Glasses_Filter.png')
 
     #get shape of cat filter
     original_cat_h,original_cat_w,cat_channels = cat.shape
@@ -127,6 +130,7 @@ def video_feed():
 @app.route('/')
 def index():
     #Video streaming Home Page
+    
     return render_template('index.html')
 
 

@@ -1,4 +1,4 @@
-#NovusLive
+#Snap-Live Livestreaming
 
 from flask import Flask, render_template, Response
 from flask_socketio import SocketIO
@@ -11,9 +11,6 @@ socketio = SocketIO(app)
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
 def gen_frames():
-
-        #path to classifiers
-    #path = 'HaarCascades/'
 
     #get image classifiers
     face_cascade = cv2.CascadeClassifier('HaarCascades/haarcascade_frontalface_default.xml')
@@ -34,9 +31,6 @@ def gen_frames():
     #create mask and inverse mask of cat
     ret, original_mask = cv2.threshold(cat_gray, 10, 255, cv2.THRESH_BINARY_INV)
     original_mask_inv = cv2.bitwise_not(original_mask)
-
-
-
 
     while True:
         #read each frame of video and convert to gray
@@ -136,9 +130,6 @@ def index():
 
 if __name__ == '__main__':
     #app.run(debug=True)
-    #gen_frames()
     socketio.run(app)
-    #gen_frames()
 
-#mux
 

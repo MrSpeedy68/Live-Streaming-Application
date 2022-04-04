@@ -1,5 +1,8 @@
 # Snap-Live Live Streaming Application
 
+Features Flask server to host across multiple devices with a wsgi server.
+Facial recognision with CV2 for the application of live face filters.
+
 To launch the application install the following packages first.
 
 Pip installs

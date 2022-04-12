@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+socketioApp = SocketIO(app)
 
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
@@ -19,7 +19,7 @@ def gen_frames():
     #read image
     cat = cv2.imread('Filters/Cat_Filter.png')
     #cat = cv2.imread('Filters/Beard_Glasses_Filter.png')
-    #dalmation = cv2.imread('Filters/Dalmation_Filter.png')
+    #cat = cv2.imread('Filters/Dalmation_Filter.png')
     #cat = cv2.imread('Filters/Fox_Glasses_Filter.png')
 
     #get shape of cat filter
@@ -127,8 +127,10 @@ def index():
     
     return render_template('index.html')
 
+def run():
+    socketioApp.run(app)
 
 if __name__ == '__main__':
-    socketio.run(app)
+    socketioApp.run(app)
 
 
